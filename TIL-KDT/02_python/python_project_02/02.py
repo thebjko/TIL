@@ -3,10 +3,10 @@ from dotenv import load_dotenv
 from pprint import pprint
 
 load_dotenv()
-BASE_URL = "https://api.themoviedb.org/3"
-path = "/movie/popular"
+BASE_URL = 'https://api.themoviedb.org/3'
+path = '/movie/popular'
 params = {
-    'api_key': os.getenv("API_KEY"),
+    'api_key': os.getenv('API_KEY'),
     'language': 'ko-KR',
     'region': 'KR',
 }
@@ -16,8 +16,8 @@ def vote_average_movies():
     if response.status_code == 200:
         response_body = response.json()
         
-        ls = [i for i in response_body.get("results") if i.get("vote_average") >= 8]
-        return sorted(ls, key=lambda d: d["vote_average"], reverse=True)
+        ls = [i for i in response_body.get('results') if i.get('vote_average') >= 8]
+        return sorted(ls, key=lambda d: d['vote_average'], reverse=True)
         
 # 아래의 코드는 수정하지 않습니다.
 if __name__ == '__main__':

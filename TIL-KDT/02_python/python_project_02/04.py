@@ -11,20 +11,20 @@ def search_movie(title):
     https://developers.themoviedb.org/3/getting-started/search-and-query-for-details
     https://developers.themoviedb.org/3/movies/get-movie-recommendations
     """
-    BASE_URL = "https://api.themoviedb.org/3"
-    path = "/search/movie"
+    BASE_URL = 'https://api.themoviedb.org/3'
+    path = '/search/movie'
     params = {    
-        'api_key': os.getenv("API_KEY"),
+        'api_key': os.getenv('API_KEY'),
         'query': '+'.join(title.split()),
         'language': 'ko-KR',
         'region': 'KR',
     }
     
     response = requests.get(BASE_URL+path, params=params)
-    result = response.json().get("results")
+    result = response.json().get('results')
     
     try:
-        return result[0].get("id")
+        return result[0].get('id')
 
     except:
         return None
