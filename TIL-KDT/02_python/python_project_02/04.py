@@ -3,14 +3,6 @@ from operator import itemgetter
 from dotenv import load_dotenv
 from pprint import pprint
 
-# load_dotenv()
-# BASE_URL = "https://api.themoviedb.org/3"
-# path = "/movie/popular"
-# params = {
-#     'api_key': os.getenv("API_KEY"),
-#     'language': 'ko-KR',
-#     'region': 'KR',
-# }
 load_dotenv()
 
 def search_movie(title):
@@ -21,18 +13,19 @@ def search_movie(title):
     """
     BASE_URL = "https://api.themoviedb.org/3"
     path = "/search/movie"
-    params = {
-    'api_key': os.getenv("API_KEY"),
-    'query': '+'.join(title.split()),
-    'language': 'ko-KR',
-    'region': 'KR',
-}
+    params = {    
+        'api_key': os.getenv("API_KEY"),
+        'query': '+'.join(title.split()),
+        'language': 'ko-KR',
+        'region': 'KR',
+    }
     
     response = requests.get(BASE_URL+path, params=params)
     result = response.json().get("results")
+    
     try:
-        movie_id = result[0].get("id")
-        return movie_id
+        return result[0].get("id")
+
     except:
         return None
 

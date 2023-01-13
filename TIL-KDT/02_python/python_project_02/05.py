@@ -4,30 +4,43 @@ from dotenv import load_dotenv
 from pprint import pprint
 
 load_dotenv()
-
-def recommendation(title):
-    
-    BASE_URL = "https://api.themoviedb.org/3"
-    path = "/search/movie"
-    params = {
+BASE_URL = "https://api.themoviedb.org/3"
+path = "/search/movie"
+params = {
     'api_key': os.getenv("API_KEY"),
-    'query': '+'.join(title.split()),
     'language': 'ko-KR',
     'region': 'KR',
-    }
+}
+
+def get_movie_id(title: str) -> str:
+    params.update(query=title)
+    
     response = requests.get(BASE_URL+path, params=params)
     result = response.json().get("results")
+
     try:
         movie_id = result[0].get("id")
+        return movie_id
+
+    except:
+        return IndexError
+
+
+def recommendation(title: str) -> list:
+    try:
+        movie_id = get_movie_id(title)
         path = f"/movie/{movie_id}/recommendations"
+
         params.pop("query")
-        params.pop("region")
-    
+        params.pop("region", None)
+
         response = requests.get(BASE_URL+path, params=params)
         result = response.json().get("results")
-        recommendations = [i.get("title") for i in result]
-        return recommendations
-    except:
+        print(params, type(result))
+        
+        return [i.get("title") for i in result]
+        
+    except IndexError:
         return None
 
 

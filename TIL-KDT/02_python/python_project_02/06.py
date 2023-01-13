@@ -6,23 +6,33 @@ from pprint import pprint
 load_dotenv()
 BASE_URL = "https://api.themoviedb.org/3"
 path = "/search/movie"
-API_KEY = os.getenv("API_KEY")
 params = {
-    'api_key': API_KEY,
+    'api_key': os.getenv("API_KEY"),
     'language': 'ko-KR',
     'region': 'KR',
 }
 
+def get_movie_id(title: str) -> str:
+    # global path
+    # global params
+
+    params.update(query=title)
+    response = requests.get(BASE_URL+path, params=params)
+    result = response.json().get("results")
+
+    try:
+        movie_id = result[0].get("id")
+        return movie_id
+    except:
+        return IndexError
+
+
 def credits(title):
     global path    
     global params
-    params.update(query=title)
-    
-    response = requests.get(BASE_URL+path, params=params)
-    result = response.json().get("results")
-    
+     
     try:
-        movie_id = result[0].get("id")
+        movie_id = get_movie_id(title)
         path = f"/movie/{movie_id}/credits"
         
         params.pop("query")
@@ -30,10 +40,12 @@ def credits(title):
         
         response = requests.get(BASE_URL+path, params=params)
         result = response.json().get("cast")
+        
         return [i['name'] for i in result if i.get("cast_id") < 10]
 
     except:
         return None
+
 
 # 아래의 코드는 수정하지 않습니다.
 if __name__ == '__main__':
