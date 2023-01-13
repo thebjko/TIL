@@ -13,8 +13,6 @@ params = {
 }
 
 def get_movie_id(title: str) -> str:
-    # global path
-    # global params
 
     params.update(query=title)
     response = requests.get(BASE_URL+path, params=params)
@@ -39,9 +37,15 @@ def credits(title):
         params.pop("region")
         
         response = requests.get(BASE_URL+path, params=params)
-        result = response.json().get("cast")
+        json = response.json()
+
+        casts = json.get('cast')
+        crews = json.get('crew')        
         
-        return [i['name'] for i in result if i.get("cast_id") < 10]
+        casts = [i['name'] for i in casts if i.get("cast_id") < 10]
+        directing = [i['name'] for i in crews if i.get("department") == "Directing"]
+        
+        return {'cast': casts, 'directing': directing}
 
     except:
         return None
@@ -53,7 +57,7 @@ if __name__ == '__main__':
     제목에 해당하는 영화가 있으면 해당 영화 id를 통해 영화 상세정보를 검색하여 주연배우 목록(cast)과 스태프(crew) 중 연출진 목록 반환
     영화 검색에 실패할 경우 None을 반환
     """
-    pprint(credits('인생은 아름다워'))
+    pprint(credits('기생충'))
     # {'cast': ['Song Kang-ho', 'Lee Sun-kyun', ..., 'Jang Hye-jin'], 'crew': ['Bong Joon-ho', 'Park Hyun-cheol', ..., 'Yoon Young-woo']}
     pprint(credits('검색할 수 없는 영화'))
     # None
