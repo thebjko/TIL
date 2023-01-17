@@ -1,5 +1,5 @@
 # 주사위 세개
-ls = a, b, c = sorted(map(int, open(0).read().split()))
+ls = a, b, c = list(map(int, open(0).read().split()))
 
 if a == b == c:
     print(10000 + a * 1000)

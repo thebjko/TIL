@@ -18,7 +18,6 @@ Originally:
 print(sum([p:=int(x)*(p+1)for x in[*open(0)][1].split()]))
 
 Equivalently (in functionality):
-p = 0
 ls = []
 for x in [*open(0)][1].split():
     ls.append(p := int(x) * (p + 1))
