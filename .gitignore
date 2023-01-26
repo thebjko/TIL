@@ -1,3 +1,4 @@
+.gitignore
 AWS*
 iTerm*
 templates/
@@ -6,3 +7,4 @@ Journal/scratch.py
 TIL-KDT/01*
 TIL-KDT/README.md
 TIL-KDT/assets/*
+Journal/*
