@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "255ef41482ce5c18",
+        "id": "149ec0aca01a04d9",
         "type": "tabs",
         "children": [
           {
-            "id": "19e72209fa953300",
+            "id": "9fea587521259939",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "README.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -148,8 +140,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "19e72209fa953300",
+  "active": "9fea587521259939",
   "lastOpenFiles": [
+    "README.md",
     "용어/Assumption과 Presumption의 차이.md",
     "Presumption.md",
     "애자일/애자일 환경.md",
@@ -165,7 +158,6 @@
     "Templates",
     "용어",
     "애자일",
-    "README.md",
     "CLI/디렉토리 복사하기.md",
     "CLI",
     "JavaScript"
