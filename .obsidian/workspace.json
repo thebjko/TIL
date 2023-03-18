@@ -150,6 +150,8 @@
   },
   "active": "503ccf08b5ea1dd4",
   "lastOpenFiles": [
+    "test.md",
+    "Templates/note_template.md",
     "용어/Assumption과 Presumption의 차이.md",
     "용어/기술 부채.md",
     "Obsidian/옵시디언에서 마크다운 링크 사용할 때 주의사항.md",
@@ -166,7 +168,6 @@
     "Assets/Excalidraw/애자일 환경을 위한 좌석배치 예시.md",
     "Assets",
     "Assets/Excalidraw",
-    "Templates/note_template.md",
     "JavaScript/배열 값 구분하여 문자열로 만들기.md",
     "Templates",
     "용어",
