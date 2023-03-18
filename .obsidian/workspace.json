@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "용어/Assumption과 Presumption의 차이.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "용어/Assumption과 Presumption의 차이.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "용어/Assumption과 Presumption의 차이.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "용어/Assumption과 Presumption의 차이.md"
+                "file": "README.md"
               }
             }
           }
@@ -144,15 +144,16 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
   "active": "19e72209fa953300",
   "lastOpenFiles": [
+    "용어/Assumption과 Presumption의 차이.md",
     "Presumption.md",
     "애자일/애자일 환경.md",
     "용어/기술 부채.md",
-    "용어/Assumption과 Presumption의 차이.md",
     "Assets/애자일 사무실 설계.png",
     "Assets/애자일 좌석 배치.png",
     "애자일/적응형 라이프사이클(III).md",
