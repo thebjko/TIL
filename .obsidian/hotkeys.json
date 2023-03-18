@@ -34,5 +34,14 @@
       ],
       "key": "P"
     }
+  ],
+  "obsidian-git:pull": [
+    {
+      "modifiers": [
+        "Ctrl",
+        "Mod"
+      ],
+      "key": "P"
+    }
   ]
 }
