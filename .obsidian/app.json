@@ -1,4 +1,5 @@
 {
   "strictLineBreaks": true,
-  "readableLineLength": false
+  "readableLineLength": false,
+  "useMarkdownLinks": true
 }

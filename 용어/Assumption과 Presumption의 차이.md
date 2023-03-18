@@ -4,4 +4,4 @@
 # Presumption
 정황을 바탕으로 한 추측
 
-출처 : ttps://m.blog.naver.com/woonyko/221388603474
+출처 : https://m.blog.naver.com/woonyko/221388603474

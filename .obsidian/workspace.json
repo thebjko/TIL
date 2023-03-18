@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "149ec0aca01a04d9",
+        "id": "74623931793680a4",
         "type": "tabs",
         "children": [
           {
-            "id": "9fea587521259939",
+            "id": "503ccf08b5ea1dd4",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "용어/Assumption과 Presumption의 차이.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "용어/Assumption과 Presumption의 차이.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "용어/Assumption과 Presumption의 차이.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "용어/Assumption과 Presumption의 차이.md"
+              }
             }
           }
         ]
@@ -140,13 +148,18 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "9fea587521259939",
+  "active": "503ccf08b5ea1dd4",
   "lastOpenFiles": [
-    "README.md",
+    "용어/기술 부채.md",
+    "Obsidian/옵시디언에서 마크다운 링크 사용할 때 주의사항.md",
     "용어/Assumption과 Presumption의 차이.md",
+    "용어/코드 리뷰.md",
+    "Obsidian/Obsidian-Git",
+    "Obsidian",
+    "'코드.md",
+    "README.md",
     "Presumption.md",
     "애자일/애자일 환경.md",
-    "용어/기술 부채.md",
     "Assets/애자일 사무실 설계.png",
     "Assets/애자일 좌석 배치.png",
     "애자일/적응형 라이프사이클(III).md",
