@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "용어/Assumption과 Presumption의 차이.md",
+                "file": "Templates/note_template.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "용어/Assumption과 Presumption의 차이.md",
+                "file": "Templates/note_template.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "용어/Assumption과 Presumption의 차이.md",
+                "file": "Templates/note_template.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "용어/Assumption과 Presumption의 차이.md"
+                "file": "Templates/note_template.md"
               }
             }
           }
@@ -150,9 +150,9 @@
   },
   "active": "503ccf08b5ea1dd4",
   "lastOpenFiles": [
+    "용어/Assumption과 Presumption의 차이.md",
     "용어/기술 부채.md",
     "Obsidian/옵시디언에서 마크다운 링크 사용할 때 주의사항.md",
-    "용어/Assumption과 Presumption의 차이.md",
     "용어/코드 리뷰.md",
     "Obsidian/Obsidian-Git",
     "Obsidian",
