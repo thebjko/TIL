@@ -6,5 +6,33 @@
       ],
       "key": "A"
     }
+  ],
+  "obsidian-git:commit-staged-specified-message": [],
+  "obsidian-git:commit-specified-message": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "C"
+    }
+  ],
+  "obsidian-git:commit": [
+    {
+      "modifiers": [
+        "Ctrl",
+        "Mod"
+      ],
+      "key": "C"
+    }
+  ],
+  "obsidian-git:push2": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "P"
+    }
   ]
 }
