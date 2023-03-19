@@ -7,8 +7,7 @@
       "key": "A"
     }
   ],
-  "obsidian-git:commit-staged-specified-message": [],
-  "obsidian-git:commit-specified-message": [
+  "obsidian-git:commit-staged-specified-message": [
     {
       "modifiers": [
         "Alt",
@@ -17,15 +16,8 @@
       "key": "C"
     }
   ],
-  "obsidian-git:commit": [
-    {
-      "modifiers": [
-        "Ctrl",
-        "Mod"
-      ],
-      "key": "C"
-    }
-  ],
+  "obsidian-git:commit-specified-message": [],
+  "obsidian-git:commit": [],
   "obsidian-git:push2": [
     {
       "modifiers": [
@@ -42,6 +34,59 @@
         "Mod"
       ],
       "key": "P"
+    }
+  ],
+  "obsidian-git:stage-current-file": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "S"
+    }
+  ],
+  "obsidian-git:unstage-current-file": [
+    {
+      "modifiers": [
+        "Alt",
+        "Shift"
+      ],
+      "key": "S"
+    }
+  ],
+  "obsidian-excalidraw-plugin:insert-link-to-element": [],
+  "obsidian-link-converter:convert-wikis-to-md-in-active-file": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "M"
+    }
+  ],
+  "obsidian-link-converter:convert-md-to-wikis-in-active-file": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "M"
+    }
+  ],
+  "app:go-back": [
+    {
+      "modifiers": [
+        "Ctrl",
+        "Mod"
+      ],
+      "key": "ArrowLeft"
+    }
+  ],
+  "app:go-forward": [
+    {
+      "modifiers": [
+        "Ctrl",
+        "Mod"
+      ],
+      "key": "ArrowRight"
     }
   ]
 }
