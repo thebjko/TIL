@@ -3,7 +3,7 @@ date: 2023-03-20, Mon
 topics: 알고리즘 공부 방법/순서, 
 tags: 덕몽어스, 구스구스덕, 파이썬, 장고, python, django
 ---
-# [Django](https://drive.google.com/file/d/18XG3q4SAdsDTpN1VyvDfFKO7u2ZMTaxg/view)
+# Django
 
 > "회사에 들어가서 실력을 키우려면 베이스가 있어야 한다."
 
