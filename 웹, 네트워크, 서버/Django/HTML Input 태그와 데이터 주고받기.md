@@ -89,6 +89,7 @@ lotto_create.html
 </script>
 {% endblock script %}
 ```
+> `name` 속성이 아니라 `id`로도 된다. 
 
 views.py
 ```python
