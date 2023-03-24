@@ -27,12 +27,13 @@ context : django,
 3. `python manage.py migrate` : 업데이트한 설계도 DB에 반영하기
 	- `Applying todos.0001_initial... OK`와 같은 메세지들이 터미널에 출력된다.
 
-## 기타 명령
+## 기타
 1. `python manage.py showmigrations`
 	- 반영된 `migrations`를 확인하는 커맨드.
 	- 앞에 `[X]` 표시가 뜬다면 잘 되었다는 뜻이다.
 2. `python manage.py sqlmigrate application_name migration_file_number`
 	- SQL 명령어로 번역된 `Migration` 파일이 터미널에 출력된다.
+3. VSCode SQLite Viewer 확장 프로그램
 
 ## DB 초기화하기
 migrations 파일들과 db.sqlite3 파일을 삭제한다.
@@ -51,6 +52,6 @@ admin.py
 from django.contrib import admin
 from .models import Todo
 
-
+# admin site에 Todo를 register한다.
 admin.site.register(Todo)
 ```
