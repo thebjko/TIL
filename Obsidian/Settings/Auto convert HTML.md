@@ -4,7 +4,7 @@ topics : obsidian settings, Auto convert HTML,
 context : 옵시디언, settings, VSCode,
 ---
 # Auto convert HTML 활성화에 따른 VSCode로부터 코드 복사
-
+version :: 1.1.16
 ## 켜져 있을 때 :
 ```python
 from django.db import models
