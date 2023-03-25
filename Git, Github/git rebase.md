@@ -17,7 +17,7 @@ context:
 # test 브랜치로 이동
 git checkout test
 
-# test 브랜치의 커밋을 main 브랜치에 rebase 하기
+# main 브랜치의 커밋을 test 브랜치에 rebase 하기
 git rebase main
 
 ```
@@ -28,7 +28,8 @@ main 브랜치에 test.txt를 만들고 test 브랜치 생성 후 이동 및 tes
 test 브랜치에 test.txt와 test-branch.txt가 있으며, main 브랜치에 test.txt와 main-branch.txt 파일이 있다. 이후 test 브랜치에서 git rebase main 명령 실행 -> test 브랜치에 main-branch.txt 파일이 새로 생겼다. 깃허브 공식 문서에서는 여기서 main 브랜치에서 test 브랜치를 merge하면 내용은 rebasing 없이 merge한 것과 같지만, 히스토리가 훨씬 더 깔끔하다고 한다.
 
 ## 실험해보기
-같은 파일 내용이 다를 경우엔?  
+> 같은 파일 내용이 다를 경우엔?  
+
 main브랜치:
 - test.txt
 - 1.txt
