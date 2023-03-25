@@ -100,4 +100,4 @@ Could not apply 01239ba... test.txt 수정
 ---
 
 # 더 공부해 볼 주제
-- [More Interset Rebases](https://git-scm.com/book/en/v2/Git-Branching-Rebasing#_more_interesting_rebases)
+- [More Interesting Rebases](https://git-scm.com/book/en/v2/Git-Branching-Rebasing#_more_interesting_rebases)
