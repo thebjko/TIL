@@ -95,3 +95,9 @@ Could not apply 01239ba... test.txt 수정
 2. 프로젝트가 어떻게 만들어졌는지에 대한 이야기(the story of how your project was made)
 
 2번의 관점에서 rebase나 filter-branch를 사용하면, 커밋 히스토리를 깔끔하게 정리할 수 있다. merge를 더 공부하면서 비교해야겠지만 일단은 "둘 다 브랜치를 합치는 방식이고, merge는 충돌 기록을 남기며, rebase는 남기지 않는다" 정도로 이해해야겠다.
+
+
+---
+
+# 더 공부해 볼 주제
+- [More Interset Rebases](https://git-scm.com/book/en/v2/Git-Branching-Rebasing#_more_interesting_rebases)
