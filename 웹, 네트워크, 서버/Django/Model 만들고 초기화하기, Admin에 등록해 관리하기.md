@@ -32,9 +32,11 @@ context : django,
 	- 반영된 `migrations`를 확인하는 커맨드.
 	- 앞에 `[X]` 표시가 뜬다면 잘 되었다는 뜻이다.
 		- `migrate` 이후에 `[X]` 표시가 된다.
-1. `python manage.py sqlmigrate application_name migration_file_number`
+2. `python manage.py sqlmigrate application_name migration_file_number`
 	- SQL 명령어로 번역된 `Migration` 파일이 터미널에 출력된다.
-2. VSCode SQLite Viewer 확장 프로그램
+3. VSCode SQLite Viewer 확장 프로그램
+4. `DateField()`의 `auto_now_add` : 데이터가 처음 생성될 때만 자동으로 현재 날짜를 저장한다. 
+	- `auto_now`는 데이터가 저장될 때마다 자동으로 현재 날짜/시간을 저장 
 
 ## DB 초기화하기
 migrations 파일들과 db.sqlite3 파일을 삭제한다.
