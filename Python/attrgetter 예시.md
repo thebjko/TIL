@@ -1,6 +1,6 @@
 ---
 created : 2023-03-28, Tue
-topics : Operator 모듈 attergetter 함수
+topics : Operator 모듈 attrgetter 함수
 context : django, python, ipython, 28032023_실습
 ---
 # `attergetter` Example
