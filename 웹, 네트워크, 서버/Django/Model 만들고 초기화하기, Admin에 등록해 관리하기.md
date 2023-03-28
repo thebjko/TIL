@@ -31,9 +31,10 @@ context : django,
 1. `python manage.py showmigrations`
 	- 반영된 `migrations`를 확인하는 커맨드.
 	- 앞에 `[X]` 표시가 뜬다면 잘 되었다는 뜻이다.
-2. `python manage.py sqlmigrate application_name migration_file_number`
+		- `migrate` 이후에 `[X]` 표시가 된다.
+1. `python manage.py sqlmigrate application_name migration_file_number`
 	- SQL 명령어로 번역된 `Migration` 파일이 터미널에 출력된다.
-3. VSCode SQLite Viewer 확장 프로그램
+2. VSCode SQLite Viewer 확장 프로그램
 
 ## DB 초기화하기
 migrations 파일들과 db.sqlite3 파일을 삭제한다.
