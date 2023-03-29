@@ -2,7 +2,7 @@
 date:  2023-03-23, Thu
 subjects: django, url naming,
 ---
-> [include](include.md)와 같이 보기
+> [[include]]와 같이 보기
 # URL Naming
 URL이 바뀔 때마다 URL이 사용된 곳을 일일이 찾아가며 수정해야한다면 번거로운 일일 것이다. 이를 막기 위해 Django는 URL을 동적으로 관리할 수 있게 해주는 Naming 기능을 제공한다.
 
