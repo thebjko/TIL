@@ -22,7 +22,7 @@ urlpatterns = [
     path('', include('throw_and_catch.urls')),
 ]
 ```
-추가하고자 하는 어플리케이션의 urls.py 파일을 불러오기 위해 `include()`함수의 인자로 `{어플리케이션 이름}.{파일 이름(확장자 제외)}`를 전달한다. 
+추가하고자 하는 어플리케이션의 urls.py 파일을 불러오기 위해 `include()`함수의 인자로 `{어플리케이션 이름}.{파일 이름(확장자 제외)}`를 전달한다. (`app_name`과는 관계 없음)
 
 어플리케이션 레벨 urls.py 파일을 만들고, `django.urls`에서 `path` 모듈을 불러오고, views.py 파일의 함수들을 사용해야 하므로 현재 디렉토리(어플리케이션 레벨)에서 views.py를 불러온다
 ```python
