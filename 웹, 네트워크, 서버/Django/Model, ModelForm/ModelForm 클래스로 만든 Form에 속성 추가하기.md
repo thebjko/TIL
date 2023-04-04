@@ -1,9 +1,9 @@
 ---
 created : 2023-04-03, Mon
-topics : Form 클래스로 만든 Form에 속성 추가하기
+topics : ModelForm 클래스로 만든 Form에 속성 추가하기
 context : django, python
 ---
-# Form 클래스로 만든 Form에 속성 추가하기
+# ModelForm 클래스로 만든 Form에 속성 추가하기
 > `Form` 클래스에서 추가하려는 속성에 대한 클래스 변수를 만들고 `widget`을 사용한다.
 
 ```python

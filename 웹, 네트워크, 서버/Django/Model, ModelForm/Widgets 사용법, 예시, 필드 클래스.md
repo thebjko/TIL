@@ -139,7 +139,7 @@ tags : python/django/widget python/django/ModelForm
 		    ...
 	```
 	> [CharField에 label이라는 속성이 없지만](https://docs.djangoproject.com/en/3.2/_modules/django/forms/fields/#CharField) `CharField`가 상속하는 `Field` 클래스의 속성을 사용한다. 템플릿에서 점 표기법(`{{ field.label }}`)으로 접근 가능하다.
-
+ ^0dce50
 2. Django `AuthenticationForm`
 	```python
 	class AuthenticationForm(forms.Form):

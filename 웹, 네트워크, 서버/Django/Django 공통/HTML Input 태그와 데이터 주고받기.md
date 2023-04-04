@@ -2,6 +2,7 @@
 created : 2023-03-23, Thu
 topics : throw and catch, interaction with input element, name attribute
 context : 
+alias : throw and catch
 ---
 # HTML Input 태그와 데이터 주고받기
 > HTML의 input 요소와 상호작용하는 법

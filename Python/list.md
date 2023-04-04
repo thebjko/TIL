@@ -18,3 +18,18 @@ context : python
 	[1]
     ```
 
+3. `heapq`를 `copy`하면 `heapq`이다.
+	```python
+	>>> import heapq as hq
+    >>> ls = [(4,3), (2,5), (5,7)]
+    >>> ls
+	[(4, 3), (2, 5), (5, 7)]
+    >>> hq.heapify(ls)
+    >>> ls
+	[(2, 5), (4, 3), (5, 7)]
+    >>> l = ls[:]
+    >>> l
+	[(2, 5), (4, 3), (5, 7)]
+    >>> hq.heappop(l)
+	(2, 5)
+	```
