@@ -2,7 +2,7 @@
 created : 2023-04-03, Mon
 topics : BoundField
 context : django
-tags: python/django/form 
+tags: python/django/Forms_API
 ---
 # [BoundField](https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.BoundField)
 > Used to **display HTML** or **access attributes** for a single field of a Form instance.
