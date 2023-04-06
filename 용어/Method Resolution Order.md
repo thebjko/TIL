@@ -1,6 +1,6 @@
 ---
-created_at : <% tp.file.creation_date("YYYY-MM-DD, ddd") %>
-유효기록일 : <% tp.date.now("YYYY-MM-DD, ddd") %>
+created_at : 2023-04-06, Thu
+유효기록일 : 2023-04-06, Thu
 topics : MRO
 context : Form Inheritance
 tags : python/django/terminology
