@@ -15,6 +15,9 @@ settings.py
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "디렉토리이름"),
+    
+    # 또는
+    BASE_DIR / 'static',
 ]
 ```
 
