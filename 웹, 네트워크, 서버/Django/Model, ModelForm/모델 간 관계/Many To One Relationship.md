@@ -81,6 +81,8 @@ models.py
 - clear
 - set
 
+언제 사용하지?
+
 <br>
 
 ## ManyToOneRelationship 프로젝트
