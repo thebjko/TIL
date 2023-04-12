@@ -1,6 +1,6 @@
 ---
-created_at : <% tp.file.creation_date("YYYY-MM-DD, ddd") %>
-유효기록일 : <% tp.date.now("YYYY-MM-DD, ddd") %>
+created_at : 2023-04-11, Tue
+유효기록일 : 2023-04-12, Wed
 topics : Many To One Relationship
 context : ManyToOneRelationship 프로젝트
 tags : python/django/models/relations database
@@ -18,11 +18,17 @@ related : 댓글 기능, 글, 댓글 주인 찾기
 models.py
 - `ForeignKey()` 필드 생성  
 	두 개의 필수 인자
-	- `to` : 어떤 모델을 참조하는가?
+	- `to` : 어떤 모델을 참조하는가? 모델 클래스를 바로 전달할 수도 있고 '앱명.모델명'과 같이 전달할 수 도 있다.
 	- `on_delete` : 참조하는 모델 레코드(?)가 삭제되었을 때 어떻게 할건가?  
 		예를 들어, Comment가 Review를 참조할 때, Review가 삭제되면, 달려 있는 Comment들은 어떻게 할건가?
 		- CASCADE :  같이 삭제
+		- PROTECT : 
+		- RESTRICT : 
+		- SET_NULL : 
+		- SET_DEFAULT : 
+		- SET() : 
 		- DO_NOTHING : 아무 행동을 취하지 않음
+
 	```python
 	class Comment(models.Model):
 	    review = models.ForeignKey('reviews.Review', on_delete=models.CASCADE)
@@ -125,5 +131,6 @@ detail 함수 validation에서 comment 객체에 review 정보를 넣는 방법�
 ---
 # 참고자료
 - Django 공식문서 v3.2
+- https://docs.djangoproject.com/en/3.2/ref/models/fields/#foreignkey
 
 [^1]: https://docs.djangoproject.com/en/3.2/ref/models/relations/
