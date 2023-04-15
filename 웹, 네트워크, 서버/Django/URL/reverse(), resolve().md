@@ -1,6 +1,6 @@
 ---
-created_at : <% tp.file.creation_date("YYYY-MM-DD, ddd") %>
-유효기록일 : <% tp.date.now("YYYY-MM-DD, ddd") %>
+created_at : 2023-03-25, Sat
+유효기록일 : 2023-04-15, Sat
 topics : reverse, resolve
 context : v3.2
 tags : python/django/url reverse, resolve
