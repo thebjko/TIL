@@ -3,7 +3,7 @@ created_at : 2023-04-15, Sat
 유효기록일 : 2023-04-15, Sat
 topics : 
 context : 환경설정
-tags : env secret_key
+tags : dotenv secret_key .env
 related : 
 ---
 # Django `SECRET_KEY` 환경 변수로 저장하기
