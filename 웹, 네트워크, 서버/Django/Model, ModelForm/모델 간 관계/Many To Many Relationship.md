@@ -138,7 +138,7 @@ related :
 			like_comments = models.ManyToManyField('articles.Comment', related_name='like_users')
 			pass
 		```
-		2. Article과 Comment 모델 변경(articles/models.py)
+	2. Article과 Comment 모델 변경(articles/models.py)
 		```python
 		class Article(models.Model):
 			user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
