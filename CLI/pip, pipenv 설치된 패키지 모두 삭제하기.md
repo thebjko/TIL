@@ -4,7 +4,7 @@ created_at : 2023-04-18, Tue
 topics : 
 context : 
 tags : pip pipenv
-related : 
+related : xargs
 ---
 # 설치된 패키지 모두 삭제하기 (pip)
 - `pip freeze | xargs pip uninstall -y` 
