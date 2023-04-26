@@ -111,6 +111,26 @@ class ProductSerializer(serializers.ModelSerializer):
 
 <br>
 
+## Caveat
+다음은 `SerializerMethodField`의 메서드이다. 필드 이름과 `get_`을 결합해 메서드를 만든다. 정확히 어떤 원리로 동작하는지 설명할 수는 없지만 필드 이름과 serializer 메서드 이름의 관계를 유추해볼 수 있다.
+
+fields.py
+```python
+	def bind(self, field_name, parent):
+        # The method name defaults to `get_{field_name}`.
+        if self.method_name is None:
+            self.method_name = 'get_{field_name}'.format(field_name=field_name)
+
+        super().bind(field_name, parent)
+
+	 def to_representation(self, value):
+        method = getattr(self.parent, self.method_name)
+        return method(value)
+```
+
+
+<br>
+
 ---
 # 참고자료
 - [CodingEntrepreneur - Django Rest Framework Model Serializers](https://youtu.be/c708Nf0cHrs)
