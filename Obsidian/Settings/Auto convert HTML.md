@@ -45,3 +45,5 @@ class Article(models.Model):
 
 
 ```
+
+📝 Auto convert HTML은 Editor 섹션에 있다.
