@@ -1,6 +1,6 @@
 ---
-created_at : <% tp.file.creation_date("YYYY-MM-DD, ddd") %>
-유효기록일 : <% tp.date.now("YYYY-MM-DD, ddd") %>
+created_at : 2023-04-27, Thu
+유효기록일 : 2023-04-27, Thu
 topics : 
 context : 
 tags : python/django/rest_framework
@@ -10,7 +10,7 @@ related : validation
 
 ```python
 # products/views.py
-
+´
 @api_view(["GET", "POST"])
 def api_home(request, *args, **kwargs):
     """
