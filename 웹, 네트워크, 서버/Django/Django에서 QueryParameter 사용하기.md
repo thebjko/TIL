@@ -14,7 +14,7 @@ domain/search/?q=haha
 ```
 뷰 함수 내에서 아래와 같이 사용할 수 있다.
 ```python
-request.GET.get('q', '')
+request.GET.get('q', '')   # list
 ```
 
 <br>

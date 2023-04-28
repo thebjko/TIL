@@ -65,6 +65,13 @@ related :
 
 <br>
 
+# HOW TO CONVERT
+
+<br>
+
+# HOW TO USE GRAPHQL WITH DJANGO
+
+<br>
 
 ---
 # 참고자료

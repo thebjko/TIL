@@ -8,7 +8,7 @@ related :
 ---
 # Django `SECRET_KEY` 환경 변수로 저장하기
 1. 프로젝트 디렉토리에 `.env`파일 생성.
-2. `SECRET_KEY` 변수 추가하고 내 시크릿 키 실제 값 할당(따옴표 사용).
+2. `SECRET_KEY` 변수 추가하고 시크릿 키 실제 값 할당(따옴표 사용).
 3. `python-dotenv` 패키지 설치 -> `pipenv install python-dotenv`(pipenv 사용시) 또는 `pip install python-dotenv`(venv 사용시)
 4. 프로젝트 settings.py 파일에서 `SECRET_KEY` 변수를 다음과 같이 수정:
 	```python

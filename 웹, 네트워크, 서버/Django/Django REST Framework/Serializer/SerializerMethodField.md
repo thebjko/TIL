@@ -3,7 +3,7 @@ created_at : 2023-04-26, Wed
 유효기록일 : 2023-04-26, Wed
 topics : 
 context : serializer
-tags : python/django/rest_frame
+tags : python/django/rest_framework
 related : 
 ---
 # SerializerMethodField

@@ -56,6 +56,8 @@ related :
 
 <br>
 
+`INSTALLED_APPS = ['imagekit']`
+
 ---
 # 참고자료
 - ChatGPT

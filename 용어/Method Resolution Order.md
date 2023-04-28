@@ -98,6 +98,14 @@ class A(B, C):
 c
 ```
 A에게 D보다 C가 우선하므로 C의 메서드가 호출됐다.
+```mermaid
+flowchart LR
+classA[class A] --> classB[class B]
+classA[class A] --> classC[class C]
+classC[class C] --> classD[class D]
+classB[class B] --> classD[class D]
+
+```
 
 ```python
 class A:
@@ -142,6 +150,15 @@ class D(A, B, C): # 에러 발생!
     pass
 ```
 D에게 A가 가장 높은 우선순위를 갖는데 B와 C가 A를 상속받고 있어 순서가 꼬인다.
+```mermaid
+flowchart LR
+classD[class D] --> classA[class A]
+classD[class D] --> classB[class B]
+classD[class D] --> classC[class C]
+classC[class C] --> classA[class A]
+classB[class B] --> classA[class A]
+
+```
 
 ```python
 class A:

@@ -3,7 +3,7 @@ date:  2023-03-23, Thu
 subject: django, variable routing,
 context: 
 ---
-> [include](include.md), [URL Naming](URL%20Naming.md)과 같이 보면 좋다.
+> [include()](include().md), [URL Naming](URL%20Naming.md)과 같이 보면 좋다.
 # Variable Routing
 URL에 입력한 값을 변수로 사용할 수 있게 해준다. 
 

@@ -5,7 +5,8 @@ context : Todo_ModelForm 프로젝트, 템플릿
 tags : python/django/FormField/methods python/django/template_language
 ---
 # [Form Field 속성, 메서드](https://docs.djangoproject.com/en/3.2/topics/forms/#looping-over-the-form-s-fields)
-> [[Widgets 사용법, 예시, 필드 클래스#^0dce50]]를 보라
+> [[Widgets 사용법, 예시, 필드 클래스#^0dce50]]를 보라  
+> [[BoundField]] 참조
 
 ## 예시
 ```python

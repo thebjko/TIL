@@ -6,7 +6,7 @@ context :
 tags : python/django/fixtures database
 related : 
 ---
-# Django DB에 초기R 데이터 제공하기
+# Django DB에 초기 데이터 제공하기
 
 ## `python manage.py dumpdata --indent 2 articles.article`
 - `dumpdata` : 데이터 추출하기
