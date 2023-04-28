@@ -191,3 +191,4 @@ DetailView의 부모클래스인 BaseDetailView의 get 메서드에서 `get_obje
 ---
 # 참고자료
 - https://docs.djangoproject.com/en/4.2/topics/class-based-views/generic-display/
+
