@@ -8,8 +8,8 @@ related :
 ---
 # Custom Filter 만들기
 1. 어플리케이션/templatetags 디렉토리에 `__init__.py` 파일과 커스텀 템플릿 태그를 만들 파이썬 파일 하나를 만든다. 여기서는 `articles_extras.py`를 만들었다.
-2. 커스텀 템플릿 태그를 사용할 템플릿 상단에 템플릿 태그를 담고 있는 파일을 load한다. `{% load articles_extars %}`
-3. template.Library() 인스턴스를 만든다.
+2. 커스텀 템플릿 태그를 사용할 템플릿 상단에 템플릿 태그를 담고 있는 파일을 load한다. `{% load articles_extras %}`
+3. `template.Library()` 인스턴스를 만든다.
 	```python
 	from django import template
 	
