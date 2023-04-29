@@ -37,8 +37,10 @@ urlpatterns = [
 
 아직 사용할 일이 없어 와닫지 않는 내용이 많아 나중에 돌아오기로 한다.
 
-<br>
+> [!Note]
+> [We have to use reverse_lazy() instead of reverse(), as the urls are not loaded when the file is imported.](https://docs.djangoproject.com/en/4.2/topics/class-based-views/generic-editing/#model-forms) 공식 문서는 아직 파일이 임포트되지 않았을 때 `reverse_lazy`를 사용하기를 권한다.
 
+<br>
 ---
 # 참고자료
 - ChatGPT
