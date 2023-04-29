@@ -179,7 +179,7 @@ class AuthorDetailView(DetailView):
 
 `get_object`메서드를 오버라이드 함으로 구현할 수 있다. 
 
-DetailView의 부모클래스인 BaseDetailView의 get 메서드에서 `get_object()`가 실행된다. 
+DetailView의 부모클래스인 BaseDetailView의 get 메서드에서 `get_object()`가 실행된다. queryset을 인자로 넘겨받으며, 전달된 값이 없으면 model을 찾는다
 
 > 📝 Mixin 관련  
 > DetailView는 SingleObjectMixin과 BaseDetailView를 상속한다. BaseDetailView에서 사용되는 self 키워드는 SingleObjectMixin을 가리키기 위해 사용할 수 도 있는 것 같다. 파이썬에서 다중 상속은 구분된 클래스를 따로 상속한다기 보다는 두개를 섞어 만든 하나의 클래스를 상속하는 것이라고 이해할 수 있을 듯 하다.
