@@ -29,6 +29,7 @@ CreateView 클래스를 사용해 CBV로 리팩터해보자.
 	class TodoCreateView(CreateView):
 	    model = Todo
 	    template_name = 'todos/create.html'
+	    form_class = TodoForm
 	```
 이대로라면 에러가 발생한다. 작성할 Fields가 제공되지 않았다는 ImproperlyConfigured 에러인데, Form을 그냥 만들어주지는 않나보다. fields 속성에 값을 할당하고 `get_form` 메서드에서 위젯을 지정하는 어려운 방법이 있는데, 여기서는 그냥 `form_class`에 forms.py의 TodoForm을 할당해주기로 한다(1).
 
@@ -103,9 +104,25 @@ detail.html
 
 <br>
 
+# form_valid 메서드
+모델의 `get_absolute_url` 메서드 대신 View 클래스에 `form_valid`메서드를 오버라이드 해 사용할 수 있다.
+```python
+class TodoCreateView(CreateView):
+    model = Todo
+    template_name = 'todos/create.html'
+    form_class = TodoForm
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        todo = form.save()
+        self.success_url = reverse_lazy('todos:detail', args=(todo.id,))
+        return super(TodoCreateView, self).form_valid(form)
+```
+메서드 안에서 form을 저장하고 인스턴스 변수 `success_url`에 동적인 url을 할당하는 방식이
+<br>
+
 ---
 # 참고자료
 1. https://stackoverflow.com/questions/27321692/override-a-django-generic-class-based-view-widget
 2. https://docs.djangoproject.com/en/4.2/topics/class-based-views/generic-editing/#model-forms
+3. https://stackoverflow.com/questions/37626931/proxy-object-has-no-attribute-get-in-createview/37627016#37627016
 
 [^1]:
