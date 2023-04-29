@@ -25,39 +25,40 @@ def create(request):
 CreateView 클래스를 사용해 CBV로 리팩터해보자.
 
 1. `model`과 `template_name` 작성
-```python
-class TodoCreateView(CreateView):
-    model = Todo
-    template_name = 'todos/create.html'
-```
+	```python
+	class TodoCreateView(CreateView):
+	    model = Todo
+	    template_name = 'todos/create.html'
+	```
 이대로라면 에러가 발생한다. 작성할 Fields가 제공되지 않았다는 ImproperlyConfigured 에러인데, Form을 그냥 만들어주지는 않나보다. fields 속성에 값을 할당하고 `get_form` 메서드에서 위젯을 지정하는 어려운 방법이 있는데, 여기서는 그냥 `form_class`에 forms.py의 TodoForm을 할당해주기로 한다(1).
 
 2. Todo 모델에 `get_absolute_url` 정의
-여기서 url을 제공하거나 `get_absolute_url` 메서드를 정의하라는 에러가 발생한다. 생성 후 생성된 detail 페이지로 이동할 것이므로 인스턴스의 정보가 필요해 `success_url` 속성을 정의하는 대신, **Todo 모델에** `get_absolute_url` 속성을 정의하자(2).
-```python
-class Todo(models.Model):
-    title = models.CharField(max_length=80)
-    content = models.TextField(null=True)
-    completed = models.BooleanField(default=False)
-    priority = models.IntegerField(default=3)
-    created_at = models.DateField(auto_now_add=True)
-    deadline = models.DateField(null=True)
-    
-    def get_absolute_url(self):
-        return reverse_lazy('todos:detail', kwargs={'pk': self.pk})
-```
+
+	여기서 url을 제공하거나 `get_absolute_url` 메서드를 정의하라는 에러가 발생한다. 생성 후 생성된 detail 페이지로 이동할 것이므로 인스턴스의 정보가 필요해 `success_url` 속성을 정의하는 대신, **Todo 모델에** `get_absolute_url` 속성을 정의하자(2).
+	```python
+	class Todo(models.Model):
+	    title = models.CharField(max_length=80)
+	    content = models.TextField(null=True)
+	    completed = models.BooleanField(default=False)
+	    priority = models.IntegerField(default=3)
+	    created_at = models.DateField(auto_now_add=True)
+	    deadline = models.DateField(null=True)
+	    
+	    def get_absolute_url(self):
+	        return reverse_lazy('todos:detail', kwargs={'pk': self.pk})
+	```
 
 3. create.html
-```django
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">
-    만들기
-  </button>
-</form>
-```
-form 요소에서 action 속성을 뺐다.
+	```django
+	<form method="post">
+	  {% csrf_token %}
+	  {{ form.as_p }}
+	  <button type="submit" class="btn btn-primary">
+	    만들기
+	  </button>
+	</form>
+	```
+	form 요소에서 action 속성을 뺐다.
 
 <br>
 
