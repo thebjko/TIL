@@ -179,10 +179,25 @@ class AuthorDetailView(DetailView):
 
 `get_object`메서드를 오버라이드 함으로 구현할 수 있다. 
 
-DetailView의 부모클래스인 BaseDetailView의 get 메서드에서 `get_object()`가 실행된다. queryset을 인자로 넘겨받으며, 전달된 값이 없으면 model을 찾는다
+DetailView의 부모클래스인 BaseDetailView의 get 메서드에서 `get_object()`가 실행된다. queryset을 인자로 넘겨받으며, 전달된 값이 없으면 model을 찾는다.
 
-> 📝 Mixin 관련  
-> DetailView는 SingleObjectMixin과 BaseDetailView를 상속한다. BaseDetailView에서 사용되는 self 키워드는 SingleObjectMixin을 가리키기 위해 사용할 수 도 있는 것 같다. 파이썬에서 다중 상속은 구분된 클래스를 따로 상속한다기 보다는 두개를 섞어 만든 하나의 클래스를 상속하는 것이라고 이해할 수 있을 듯 하다.
+```python
+class BaseDetailView(SingleObjectMixin, View):
+    """A base view for displaying a single object."""
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+```
+BaseDetailView가 부모 클래스인 SingleObjectMixin 클래스의 `get_object`메서드를 호출하는데 self 키워드를 사용하고 있다. [클래스 변수에 접근하기 위해 self 키워드를 사용할 수 있다.](https://dojang.io/mod/page/view.php?id=2378) `super()`가 아니라 왜 self를 사용할까? [[Method Resolution Order]] 때문에 가능한건가? 자기 자신에게 없는게 확실하고, 우선순위를 갖는 SingleObjectMixin에 있으니 그냥 사용해도 괜찮은건가? 확실한 건 아래와 같이 self를 `super()`로 바꾸고 detail 페이지를 실행해도 정상적으로 작동한다는 점이다.
+```python
+class BaseDetailView(SingleObjectMixin, View):
+    """A base view for displaying a single object."""
+    def get(self, request, *args, **kwargs):
+        self.object = super().get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+```
 
 📝 [메서드와 기능들에 대한 다른 설명은 API Reference를 참고하자.](https://docs.djangoproject.com/en/4.2/ref/class-based-views/)
 
