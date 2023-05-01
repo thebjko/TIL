@@ -92,7 +92,7 @@ form.save()했다고 해서 바로 로그인이 되지 않았다(`'AnonymousUser
         auth_login(self.request, self.object)
         return valid
 ```
-로그인 뷰와는 다먼저 부모클래스의 `form_valid`메서드를 실행한 후에야 로그인이 되었다.
+로그인 뷰와는 다르게 먼저 부모클래스의 `form_valid`메서드를 실행한 후에야 로그인이 되었다.
 
 <br>
 

@@ -116,7 +116,8 @@ class TodoCreateView(CreateView):
         self.success_url = reverse_lazy('todos:detail', args=(todo.id,))
         return super(TodoCreateView, self).form_valid(form)
 ```
-메서드 안에서 form을 저장하고 인스턴스 변수 `success_url`에 동적인 url을 할당하는 방식이
+메서드 안에서 form을 저장하고 인스턴스 변수 `success_url`에 동적인 url을 할당하는 방식이다.
+
 <br>
 
 ---
