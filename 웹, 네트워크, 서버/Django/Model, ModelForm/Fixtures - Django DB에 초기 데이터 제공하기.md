@@ -8,10 +8,11 @@ related :
 ---
 # Django DB에 초기 데이터 제공하기
 
-## `python manage.py dumpdata --indent 2 articles.article`
+## `python manage.py dumpdata --indent 2 articles.article > {파일이름}.json`
 - `dumpdata` : 데이터 추출하기
 - `--indent 2` : JSON 들여쓰기 간격 2. 지정하지 않으면 1줄이 생성된다.
 - `articles.article` : articles 앱의 article 모델에서 데이터 추출
+- 여러 모델 데이터를 하나의 픽스쳐 파일로 저장 가능
 
 <br>
 
