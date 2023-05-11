@@ -221,6 +221,7 @@ Connect를 클릭하면 쿼리를 입력할 수 있는 창과, 테이블 목록�
 8. [HOSTNAME 등, DB 정보 찾기 - AWS Doc](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html)
 9. [CLI로 MySQL DB 연결하기](https://dev.mysql.com/doc/refman/8.0/en/connecting.html)
 10. [AWS Secrets Manager: Amazon RDS integration for master user password management](https://youtu.be/tAXYA9QAR2o)
+11. [Move hardcoded database credentials to AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/hardcoded-db-creds.html)
 
 
 [^1]: https://www.mysqltutorial.org/mysql-drop-database/
