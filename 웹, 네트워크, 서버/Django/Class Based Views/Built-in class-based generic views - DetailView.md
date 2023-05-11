@@ -99,7 +99,6 @@ class PublisherDetailView(DetailView):
         return context
 ```
 성공적으로 템플릿에 전달되었다.
-![[get_context_data.png]]
 
 <br>
 
