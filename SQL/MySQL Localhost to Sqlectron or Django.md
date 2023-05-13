@@ -7,7 +7,7 @@ tags : django sqlectron mysql localhost
 related : 
 ---
 # MySQL Localhost to Sqlectron or Django
-내컴퓨터에서 실행한 MySQL서버로 연결하기
+### 로컬 컴퓨터에서 실행한 MySQL서버로 연결하기
 
 1. mysql 서버 실행 
 ```zsh
@@ -23,7 +23,7 @@ related :
 ```zsh
 > mysql
 ```
-4. 사용할 데이터베이스 생성
+4. 사용할 데이터베이스(`mydb`) 생성
 ```zsh
 mysql> CREATE DATABASE mydb;
 Query OK, 1 row affected (0.00 sec)
@@ -35,13 +35,13 @@ Query OK, 1 row affected (0.00 sec)
 	- Server Address : `localhost`
 	- User : `root`
 	- Password : 유저 비밀번호
-	- Initial Database/Keyspace : 아까 생성한 `mydb` 입력
+	- Initial Database/Keyspace : 사용할 DB이름 입력. (아까 생성한 `mydb` 입력)
 7. Test 후 성공시 Save 클릭
 8. Connect 클릭하여 접속
 
 <br>
 
-0. Django와 연동하기
+### Django와 연동하기
 ```python
 DATABASES = {
     'default': {
