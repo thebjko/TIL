@@ -32,7 +32,7 @@ b = e.blog
 
 `e.blog`가 DB를 다시 조회하지 않는다. 이미 관련 정보가 `select_related`를 통해 캐시에 저장되었기 때문이다.
 
-순서는 중요하지 않다. 아래 두 쿼리는 동일한 결과를 갖는다. 
+메서드 체인의 순서는 중요하지 않다. 아래 두 쿼리는 동일한 결과를 갖는다. 
 ```python
 Entry.objects.filter(pub_date__gt=timezone.now()).select_related("blog")
 Entry.objects.select_related("blog").filter(pub_date__gt=timezone.now())
@@ -110,6 +110,8 @@ DB 쿼리를 줄인다는 점에서 비슷한 목적을 가지고 있지만, 전
 
 반면 `prefetch_related` 메서드는 각 관계당 따로 조회를 실시하고, 파이썬의 'joining'을 실시한다. 이러한 전략이 (1대 1, 1대 다 관계 +) 다대다, 다대 1 관계에서 데이터를 'prefetch' 할 수 있게 한다. (fetch는 가져오다는 뜻. 즉 미리 가져온다는 의미.)  `GenericRelation`과 `GenericForeignKey` 또한 prefetch 할 수 있게 한다는데, 지금은 넘어가기로 하자. 
 
+<br>
+
 ### Example
 ```python
 from django.db import models
@@ -136,12 +138,12 @@ class Pizza(models.Model):
 ["Hawaiian (ham, pineapple)", "Seafood (prawns, smoked salmon)"...
 ```
 
-이 경우 Pizza 모델의 `__str__` 메서드가 실행될 때마다 `self.toppings.all()`로 DB를 조회한다는 문제가 있다. 반환된 `QuerySet`의 모든 원소에 대해 DB를 조회하는 것이다. 하지만 아래와 같이 `prefetch_related` 메서드를 사용하면 쿼리를 2번으로 줄일 수 있다. (왜 2번?)
+이 경우 Pizza 모델의 `__str__` 메서드가 실행될 때마다 `self.toppings.all()`로 DB를 조회한다는 문제가 있다. 반환된 `QuerySet`의 모든 원소에 대해 DB를 조회하는 것이다. 하지만 아래와 같이 `prefetch_related` 메서드를 사용하면 쿼리를 2번으로 줄일 수 있다.
 ```python
 >>> Pizza.objects.prefetch_related('toppings')
 ```
 
-이 경우 `__str__` 메서드가 실행되면서 `self.toppings.all()` 쿼리문이 실행될 때 DB를 조회하지 않고 `prefech_related` 메서드가 가져온 캐시를 조회해 효율을 높일 수 있다. 첫 번째 쿼리에서 필요한 정보를 모두 가져와 캐시하고, "the additional queries in prefetch_related() are executed after the QuerySet has begun to be evaluated and the primary query has been executed."
+이 경우 `__str__` 메서드가 실행되면서 `self.toppings.all()` 쿼리문이 실행될 때 DB를 조회하지 않고 `prefech_related` 메서드가 가져온 캐시를 조회해 효율을 높일 수 있다. 첫 번째 단계에서 쿼리한 정보를 모두 가져와 캐시하고, "the additional queries in `prefetch_related()` are executed after the QuerySet has begun to be evaluated and the primary query has been executed."
 
 만약 모델 인스턴스로 이루어진 순회할 수 있는 객체가 있는 경우 `prefetch_related_objects()`를 사용할 수 있다.
 
@@ -198,15 +200,15 @@ Restaurant → Pizza → Topping : 각 단계별 한개씩 총 3개의 쿼리로
 >>> Restaurant.objects.prefetch_related("best_pizza__toppings")   # 3개 쿼리
 >>> Restaurant.objects.select_related("best_pizza").prefetch_related("best_pizza__toppings")   # 2개 쿼리
 ```
-`select_related`를 조합해 쿼리 수를 줄일 수 있다. 위에서 설명했듯 `select_related` 메서드는 한번의 쿼리에 모든 결과를 가져오지만 1대 1 또는 1대 다 관계일 경우에만 사용가능하다.
+`select_related`를 조합해 쿼리 수를 줄일 수 있다(Restaurant + Pizza → Topping). 위에서 설명했듯 `select_related` 메서드는 한번의 쿼리에 모든 결과를 가져오지만 1대 1 또는 1대 다 관계일 경우에만 사용가능하다.
 
-⭐️ 그리고 이 경우 `prefetch_related` 단계에서 `select_related`가 가져온 `best_pizza` 객체들을 탐지해 이 단계를 다시 반복하지 않을 수 있다.
+⭐️ 그리고 이 경우 `prefetch_related` 단계에서 `select_related`가 가져온 `best_pizza` 객체들을 탐지해 이 단계를 다시 반복하지 않는다.
 
 `select_related`와 마찬가지로 체이닝 규칙이 적용되어 조회 결과를 누적할 수 있고, 이전 `prefetch_related`를 초기화하기 위해서 `None`을 인수로 전달한다.
 
 <br>
 
-# `Prefetch()` : 커스텀 prefetching
+# `Prefetch()` : prefetch 커스텀하기
 `prefetch_related`의 인수로 사용되며, 좀 더 세세한 컨트롤을 가능하게 한다.
 ```python
 >>> from django.db.models import Prefetch
@@ -277,6 +279,8 @@ Restaurant → Pizza → Topping : 각 단계별 한개씩 총 3개의 쿼리로
 
 가져온 값을 더 깊이 필터링 해야될 경우 `to_attr`을 사용해 의미를 더 명확히 할 수 있다.
 
+<br>
+
 ### 커스텀 prefetcing이 유용한 경우들
 1대 1, 1대 N의 경우 보통 `select_related`를 사용하지만 커스텀 prefetching이 유용한 경우들이 있다.
 - 더 깊이 prefetch 하고싶을 경우
@@ -284,11 +288,12 @@ Restaurant → Pizza → Topping : 각 단계별 한개씩 총 3개의 쿼리로
 - [[only(), defer() 메서드|deferred fields]]와 같이 성능 최적화 기법을 사용하고 싶을 경우
 ```python
 >>> queryset = Pizza.objects.only('name')
->>>
+>>>	
 >>> restaurants = Restaurant.objects.prefetch_related(
 ...     Prefetch('best_pizza', queryset=queryset)
 ... )
 ```
+
 DB 선택 :  여러 DB를 사용중일 경우 using 메서드를 사용한다. (다른 DB를 어떻게 참조하지?)
 ```python
 >>> # Both inner and outer queries will use the 'replica' database
