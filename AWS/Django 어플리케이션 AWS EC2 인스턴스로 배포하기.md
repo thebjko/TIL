@@ -232,6 +232,10 @@ sudo service nginx restart
 1. Disallowed Hosts 에러 : settings.py `ALLOWED_HOSTS` 리스트에 추가하고, 서버를 재부팅하거나 `sudo systemctl restart supervisor` 명령으로 supervisor만 다시 실행해 변경사항을 반영할 수 있다.
 2. Migration 중 db가 잠겨있다고 뜰 수 있다. db를 삭제하고 다시 migrate를 진행해 해결할 수 있지만, 다른 방법도 알아볼 필요가 있을 것 같다.
 3. conf 파일 수정후 supervisor reread, update, status 및 nginx를 재실행.
+4. `mysqlclient`가 설치되지 않으면
+	```
+	sudo apt install -y python3.11-dev libmysqlclient-dev libssl-dev
+	```
 
 <br>
 
@@ -259,7 +263,8 @@ sudo service nginx restart
 - https://askubuntu.com/questions/1132349/terminal-not-opening-up-after-upgrading-python-to-3-7
 - https://webisfree.com/2020-08-23/apt-%EC%84%A4%EC%B9%98%EB%90%9C-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%AA%A8%EB%93%88-%ED%99%95%EC%9D%B8%ED%95%98%EA%B1%B0%EB%82%98-%EC%B0%BE%EA%B8%B0
 - [gunicorn.service](https://heuristicwave.github.io/pipenv01)
-- [gunicorn systemd instead of supervisor](https://docs.gunicorn.org/en/stable/deploy.html#systemd)
 - [freedesktop - systemd](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
+- [gunicorn systemd instead of supervisor](https://docs.gunicorn.org/en/stable/deploy.html#systemd)
 - [`ModuleNotFoundError: No module named 'apt_pkg'`](https://stackoverflow.com/questions/13708180/python-dev-installation-error-importerror-no-module-named-apt-pkg)
 	- [Why this happens](https://stackoverflow.com/questions/13708180/python-dev-installation-error-importerror-no-module-named-apt-pkg/64241654#64241654)
+- [`mysqlclient`가 설치되지 않을 때](https://stackoverflow.com/questions/56133947/install-mysqlclient-via-pipenv-throw-errors)a
