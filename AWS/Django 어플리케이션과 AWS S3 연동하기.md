@@ -114,6 +114,29 @@ Generate Policy 클릭 후 뜨는 JSON 문서를 복사한다.
 
 <br>
 
+### CORS
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "HEAD"
+        ],
+        "AllowedOrigins": [
+            "http://43.202.59.123"
+        ],
+        "ExposeHeaders": []
+    }
+]
+```
+S3에 올라온 JS module을 사용하려면 CORS관련 설정을 해야 한다. `AllowedOrigins`에 host를 trailing slash 없이 추가한다.
+
+<br>
+
+
 ## Django
 ### 필요 패키지 설치
 django-storages와 boto3를 설치한다. django-storage는 django가 커스텀 백엔드 저장소를 사용할 수 있게 해주는 패키지이고, boto3은 파이썬으로 Amazon SDK를 제공해주는 패키지이다.
