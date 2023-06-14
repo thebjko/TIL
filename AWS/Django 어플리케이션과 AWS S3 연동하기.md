@@ -201,6 +201,10 @@ STATICFILES_DIRS = [
 ```
 정적 파일 경로가 위와 같이 설정되어 있음에도 `collectstatic` 실행시 설정된 S3 저장소로 정적 파일이 저장되고 사용된다.
 
+> [!Note]
+> `STATIC_ROOT`를 사용하지 않는다.
+
+
 <br>
 
 ---
