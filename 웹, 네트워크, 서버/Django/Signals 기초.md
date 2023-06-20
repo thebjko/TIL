@@ -53,7 +53,7 @@ class RockNRollConfig(AppConfig):
 
 #### `Signal.connect(receiver, sender=None, weak=True, dispatch_uid=None)`[\[source\]](https://docs.djangoproject.com/en/4.2/_modules/django/dispatch/dispatcher/#Signal.connect)
 ##### Parameters
-- `receiver` : 시그널이 발생할 때 호출될 함수.
+- `receiver` : 시그널이 발생할 때 호출될 함수. receiver 데코레이터를 달고 있는 수신자 함수
 - `sender` : 어떤 Model에서 발생하는 시그널을 사용할 것인가?
 - `weak` : 인스턴스가 생성되어 유지되고 있는 메서드가 아닌 로컬 함수를 수신자 함수로 지정했을 때, 가비지 콜렉트 당할 수 있는데, 이것을 방지하기 위해 `weak` 인자에 `False`를 전달하라.
 - `dispatch_uid` : 시그널 중복을 방지하기 위해 고유 값을 전달.
@@ -65,7 +65,7 @@ def my_callback(sender, **kwargs):
 ```
 모든 수신자 함수는 `sender`와  `kwargs`를 인자로 받아야 한다. [`request_finished`](https://docs.djangoproject.com/en/4.2/ref/signals/#request-finished)는 `sender` 이외에 다른 인수를 전달하지 않기 때문이다. 
 
-그렇다고 해서 `my_callback(sender)`라고만 하면 Django는 에러를 발생시킨다. 어느 시점에 다른 인자가 추가될 수 있기 때문이라고 한다.
+그렇다고 해서 `my_callback(sender)`라고만 하면 Django는 에러를 발생시킨다. 어느 시점에 다른 인자가 추가될 수 있기 때문이라고 한다.[^6]
 
 ### 수신자 함수 연결하기
 두가지 방법이 있다.
@@ -119,7 +119,7 @@ def receiver(signal, **kwargs):
 주석에서 볼 수 있는 것 처럼 여러가지 신호에 반응하게 할 수 있다.
 
 📝 시그널을 다루는 코드와 등록하는 코드는 어디든 존재할 수 있지만, 임포트시 발생하는 부작용을 최소화하기 위해 어플리케이션의 root 모듈이나 models 모듈에 둘 것을 권장한다.  
-**In practice**, 시그널 핸들러(시그널이 발생할 때 실행되는 콜백 함수)는 주로 어플리케이션의 signals 서브모듈에 위치시키고, 시그널 리시버는 어플리케이션 configuration class[^3]의 `ready` 메서드 안에 위치시킨다(apps.py). `receiver` 데코레이터를 사용하는 경우 아래와 같이 signals 서브모듈을 임포트하면 암시적으로 시그널 핸들러와 연결된다.
+**In practice**, 시그널 핸들러(시그널이 발생할 때 실행되는 콜백 함수)는 주로 어플리케이션의 signals 서브모듈에 위치시키고, `@receiver` 데코레이터를 사용해 만들어진 시그널 리시버는 어플리케이션 configuration class[^3]의 `ready` 메서드 안에서 연결된다(apps.py). `receiver` 데코레이터를 사용하는 경우 아래와 같이 signals 서브모듈을 임포트하면 암시적으로 시그널 핸들러와 연결된다.
 
 apps.py
 ```python
@@ -138,6 +138,115 @@ class MyAppConfig(AppConfig):
         request_finished.connect(signals.my_callback)
 ```
 
+예를 들어, 아래와 같이 `Post`, `Review`가 삭제되었을 때 실행될 시그널 핸들러들을 signals.py에 배치시킨다.
+```python
+# signals.py
+from django.dispatch import receiver
+from django.core.files.storage import default_storage
+from django.db.models.signals import pre_delete
+
+from .models import Post, Review
+
+
+@receiver(pre_delete, sender=Post)
+def delete_post_images(sender, instance, **kwargs):
+    instance.review_set.all().delete()
+
+    for post_image in instance.post_images.all():
+        default_storage.delete(post_image.image.name)
+        post_image.delete()
+
+
+@receiver(pre_delete, sender=Review)
+def delete_reivew_images(sender, instance, **kwargs):
+    for review_image in instance.review_images.all():
+        default_storage.delete(review_image.image.name)
+        review_image.delete()
+
+```
+
+각 모델에서 발생하는 `pre_delete` 시그널을 받아 실행된다. `connect` 메서드로 연결되지 않았지만 해당 핸들러들을 실행시킬 수 있는 이유는, `models.Model`의 `delete` 메서드에서 `Collector` 클래스의 `delete` 메서드를 실행하는데, 아래에서 볼 수 있듯, 여기서 `pre_delete.send` 메서드로 신호를 보내기 때문이다. 
+
+`pre_delete` 메서드는 `ModelSignal` 클래스의 인스턴스이다. 
+
+```python
+# django.db.models.deletion
+class Collection:
+	...
+	
+	def delete(self):
+		...
+	
+	     with transaction.atomic(using=self.using, savepoint=False):
+	        # send pre_delete signals
+	        for model, obj in self.instances_with_model():
+	            if not model._meta.auto_created:
+	                signals.pre_delete.send(
+	                    sender=model,
+	                    instance=obj,
+	                    using=self.using,
+	                    origin=self.origin,
+	                )
+		
+		...
+    
+    ...
+    
+```
+
+즉, 시그널 핸들러 함수를 호출하려면 우선 connect로 등록 후 send로 신호를 보내거나, `receiver` 데코레이터를 사용해야 한다.
+
+```python
+from django.db import models
+from django.dispatch import receiver
+
+from .signals import demo_signal
+
+
+class Demo(models.Model):
+    demo = models.CharField("demo", max_length=50)
+
+    def send_signal(self):
+        demo_signal.send()
+        print('signal sent')
+
+    def connect_receiver(self):
+        demo_signal.connect(signal_handler, sender=self)
+
+
+def signal_handler(**kwargs):   # 반드시 **kwargs를 인자로 받아야 한다.
+    print('signal handled')
+```
+
+^61230c
+
+위 모델에서 `connect_receiver` 메서드를 실행하기 전 아무리 `send_signal` 메서드를 호출해도 `signal_handler`가 호출되지 않는다. 하지만 아래와 같이 `receiver` 데코레이터를 사용하면
+```python
+@receiver(demo_signal)
+def signal_handler(**kwargs):
+	print('signal handled')
+	
+```
+같은 결과를 얻을 수 있다.
+
+```python
+In [1]: demo = Demo.objects.create(demo='demo')
+
+In [2]: demo
+Out[2]: <Demo: Demo object (2)>
+
+In [3]: demo.send_signal()
+signal sent
+
+In [4]: demo.connect_receiver()
+
+In [5]: demo.send_signal()
+signal handled
+signal sent
+```
+
+`signal handled`가 먼저 출력됨을 확인하자.
+
 📝 또, `AppConfig.ready` 메서드는 테스트시 여러 번 호출될 수 있기 때문에, `dispatch_uid`를 사용해 신호 중복을 방지하는게 좋다.
 
 ### 특정 발신자 지정하기
@@ -154,6 +263,53 @@ def my_handler(sender, **kwargs):
 ```
 
 `pre_save` 시그널(메서드)은 어떤 인스턴스가 저장되려 할 때, 즉 `save` 메서드가 호출되는 시점, 하지만 아직 저장되지는 않은 시점에 발생해 리시버를 통해 등록된 시그널 핸들러를 호출한다. `sender`, `instance`, `raw`, `using`, `update_fields`를 인자로 받는다.[^4] 여기서 `MyModel` 클래스를 `sender`로 전달하고 있고, 위 `receiver` 데코레이터를 통해 `pre_save` 메서드에 전달한다. 해당 클래스 인스턴스의 `save` 메서드가 실행될 때 신호가 발생한다.
+
+[[Signals 기초#^61230c|위 예]]를 다시 보자.
+```python
+from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import pre_delete
+
+from .signals import demo_signal
+
+# Create your models here.
+class Demo(models.Model):
+    demo = models.CharField("demo", max_length=50)
+
+    def send_signal(self):
+        demo_signal.send(sender=self.__class__)
+        print('signal sent')
+
+class Dummy(models.Model):
+    dummy = models.CharField('dummy', max_length=50)
+
+    def send_signal(self):
+        demo_signal.send(sender=self.__class__)
+        print('dummy signal sent')
+
+
+@receiver(demo_signal, sender=Demo)
+def signal_handler(**kwargs):
+    print('demo signal handled')
+
+@receiver(demo_signal, sender=Dummy)
+def signal_handler(**kwargs):
+    print('dummy signal handled')
+```
+위와 같이 각 핸들러 함수에 `sender` 모델을 전달하고, `send` 메서드에, 각 인스턴스의 클래스를 전달하면, 원하는 모델에서 원하는 핸들러를 호출할 수 있다.
+```python
+In [1]: dummy = Dummy.objects.first()
+
+In [2]: dummy.send_signal()
+dummy signal handled
+dummy signal sent
+
+In [3]: demo = Demo.objects.first()
+
+In [4]: demo.send_signal()
+demo signal handled
+signal sent
+```
 
 어떤 시그널이 어떤 `sender`를 받는지는 공식 문서를 참고하자.[^5]
 
@@ -191,6 +347,8 @@ pizza_done = django.dispatch.Signal()
 
 둘 다 receiver와 response 튜플로 이루어진 리스트를 반환한다(`[(receiver, response), ... ]`). 
 
+`kwargs`로 전달된 인수는 핸들러 함수 내에서 사용할 수 있다.
+
 `send`는 에러를 지나가게 둔다(propagate; pass on, transmit). 
 `send_robust`는 에러를 캐치 → 모든 수신자가 신호를 받았음을 확실히 한다. 에러가 발생하면 에러 인스턴스가 response로 반환된다.
 traceback은 `__traceback__` 속성에 있다.
@@ -221,3 +379,4 @@ traceback은 `__traceback__` 속성에 있다.
 [^3]: [Django Doc 4.2 on Configuring application](https://docs.djangoproject.com/en/4.2/ref/applications/#configuring-applications-ref)
 [^4]: [Django Doc 4.2 on `pre_save`](https://docs.djangoproject.com/en/4.2/ref/signals/#pre-save)
 [^5]: [Django Doc 4.2 on Signals](https://docs.djangoproject.com/en/4.2/topics/signals/)
+[^6]: [`kwargs` on Receiver](https://stackoverflow.com/questions/20332551/how-django-signal-receiver-should-handle-errors)
