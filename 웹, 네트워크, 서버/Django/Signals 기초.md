@@ -295,6 +295,7 @@ def signal_handler(**kwargs):
 @receiver(demo_signal, sender=Dummy)
 def signal_handler(**kwargs):
     print('dummy signal handled')
+    
 ```
 위와 같이 각 핸들러 함수에 `sender` 모델을 전달하고, `send` 메서드에, 각 인스턴스의 클래스를 전달하면, 원하는 모델에서 원하는 핸들러를 호출할 수 있다.
 ```python
