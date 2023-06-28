@@ -397,7 +397,7 @@ def delete_reivew_images(sender, instance, **kwargs):
 
 `Post` 모델과 이 모델을 참조하는 `PostImage`, `Review` 모델과 이 모델을 참조하는 `ReviewImage`가 있다. `Review` 모델은 `Post`모델을 참조하며, `on_delete`는 모두 `CASCADE`이다.
 
-그런데, `Post`가 `delete()` 메서드로 삭제되었을 때, 참조관계에 있는 인스턴스들은 삭제가 되지만, S3에 저장된 파일은 삭제되지 않았다. 따라서 `delete()` 메서드는 DB의 레코드는 삭제하지만 S3에 저장된 파일은 삭제하지 않으므로 이를 삭제하도록 코드를 작성했다.
+그런데, `Post`가 `delete()` 메서드로 삭제되었을 때, 참조관계에 있는 인스턴스들은 삭제가 되지만, S3에 저장된 파일은 삭제되지 않았다.[^7] 따라서 `delete()` 메서드는 DB의 레코드는 삭제하지만 S3에 저장된 파일은 삭제하지 않으므로 `pre_delete` 시그널을 사용해, `delete()` 메서드 호출시 먼저 해당 파일을s 삭제하도록 코드를 작성했다.
 
 <br>
 
