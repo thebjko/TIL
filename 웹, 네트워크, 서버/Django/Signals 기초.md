@@ -362,6 +362,47 @@ traceback은 `__traceback__` 속성에 있다.
 
 <br>
 
+## 예시
+다음은 진행했던 프로젝트에서 사용한 코드이다.
+
+```python
+from django.dispatch import receiver
+from django.core.files.storage import default_storage
+from django.db.models.signals import pre_delete
+
+
+# 레코드 삭제/업데이트시 S3에 저장된 파일 삭제하는 함수들
+@receiver(pre_delete, sender=Post)
+def delete_post_images(sender, instance, **kwargs):
+    '''
+    Post 인스턴스 삭제시 해당 게시물에 등록된 리뷰, 이미지들 삭제하는 함수
+    '''
+    for review in instance.review_set.all():
+        review.delete()
+
+    for post_image in instance.post_images.all():
+        default_storage.delete(post_image.image.name)
+        post_image.delete()
+
+
+@receiver(pre_delete, sender=Review)
+def delete_reivew_images(sender, instance, **kwargs):
+    '''
+    Review 인스턴스 삭제시 해당 게시물에 등록된 이미지들 삭제하는 함수
+    '''
+    for review_image in instance.review_images.all():
+        default_storage.delete(review_image.image.name)
+        review_image.delete()
+```
+
+`Post` 모델과 이 모델을 참조하는 `PostImage`, `Review` 모델과 이 모델을 참조하는 `ReviewImage`가 있다. `Review` 모델은 `Post`모델을 참조하며, `on_delete`는 모두 `CASCADE`이다.
+
+그런데, `Post`가 `delete()` 메서드로 삭제되었을 때, `PostImage`와 `Review`는 삭제가 되지만, `ReviewImage`까지는 삭제되지 않는 문제가 발생했다. `Post`가 삭제될 때, 해당 인스턴스를 참조하고 있는 모델들은 `delete()` 메서드가 아니라 SQL 쿼리로 삭제가 된다고 한다.[^7] 따라서 `Review`의 `delete()` 메서드가 실행되지 않기 때문에 `pre_delete` 시그널을 사용해 `Post` 삭제시 `Review` 인스턴스의 `delete()` 메서드를 호출해야 한다.
+
+`delete()` 메서드는 DB의 레코드는 삭제하지만 S3에 저장된 파일은 삭제하지 않으므로 이를 삭제하는 코드를 작성했다.
+
+<br>
+
 ---
 # 참고자료
 - [Django Doc 4.2 on Signals](https://docs.djangoproject.com/en/4.2/topics/signals/)
@@ -381,3 +422,4 @@ traceback은 `__traceback__` 속성에 있다.
 [^4]: [Django Doc 4.2 on `pre_save`](https://docs.djangoproject.com/en/4.2/ref/signals/#pre-save)
 [^5]: [Django Doc 4.2 on Signals](https://docs.djangoproject.com/en/4.2/topics/signals/)
 [^6]: [`kwargs` on Receiver](https://stackoverflow.com/questions/20332551/how-django-signal-receiver-should-handle-errors)
+[^7]: [because the related objects are deleted with sql in database directly, it do not call the delete method of the related model, so it does not work to override delete method. it could be one way to use `pre_delete` or `post_delete` signal.](https://stackoverflow.com/questions/62358103/cascade-delete-not-working-with-django-models)
