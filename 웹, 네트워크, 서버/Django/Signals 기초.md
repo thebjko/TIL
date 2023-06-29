@@ -362,7 +362,7 @@ traceback은 `__traceback__` 속성에 있다.
 
 <br>
 
-## 예시
+## 예시 #1
 다음은 진행했던 프로젝트에서 사용한 코드이다.
 
 ```python
@@ -400,6 +400,93 @@ def delete_reivew_images(sender, instance, **kwargs):
 `Post` 모델과 이 모델을 참조하는 `PostImage`, `Review` 모델과 이 모델을 참조하는 `ReviewImage`가 있다. `Review` 모델은 `Post`모델을 참조하며, `on_delete`는 모두 `CASCADE`이다.
 
 그런데, `Post`가 `delete()` 메서드로 삭제되었을 때, 참조관계에 있는 인스턴스들은 삭제가 되지만, S3에 저장된 파일은 삭제되지 않았다.[^7] 따라서 `delete()` 메서드는 DB의 레코드는 삭제하지만 S3에 저장된 파일은 삭제하지 않으므로 `pre_delete` 시그널을 사용해, `delete()` 메서드 호출시 먼저 해당 파일을 삭제하도록 코드를 작성했다.
+
+<br>
+
+## 예시 #2
+TrackCracker 프로젝트
+```python
+# crackers/handlers.py
+from django.db.models import F, FloatField, Sum
+from django.dispatch import receiver
+
+from .models import Task
+from .signals import achievement_reassessment_signal
+
+
+@receiver(achievement_reassessment_signal, sender=Task)
+def reassess_achievement(sender, **kwargs):
+    supertask = kwargs.get('supertask')
+    if supertask is not None and supertask.completed == False:
+        if supertask.subtasks.exists():
+            # 최상위 Task가 아닌 경우. 완료 표시가 된 경우 1.0으로 유지
+            weighted_achievement_total = supertask.subtasks.annotate(
+                weighted_achievement=F('achievement')*F('proportion')
+            ).aggregate(
+                weighted_achievement_total=Sum('weighted_achievement', output_field=FloatField())
+            ).get('weighted_achievement_total', 0)
+            total = supertask.subtasks.aggregate(
+                total=Sum('proportion', output_field=FloatField())
+            ).get('total', 1)
+            supertask.achievement = weighted_achievement_total / total
+            if supertask.achievement == 1.0:
+                supertask.completed = True
+            else:
+                supertask.completed = False
+            supertask.save()   # 여기서 호출된 save 메서드 또한 post_save 신호를 발생시킨다.
+        else:
+            supertask.achievement = 0.0
+            supertask.save()
+
+
+```
+
+```python
+# crackers/signals.py
+from django.dispatch import Signal
+
+# save, delete 후 achievement를 다시 계산하기 위한 시그널
+# Task 모델 클래스의 save, delete 메서드에서 해당 시그널을 보낸다.
+achievement_reassessment_signal = Signal()
+
+```
+
+```python
+from django.apps import AppConfig
+
+
+class CrackersConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'crackers'
+
+    def ready(self):
+	    '''
+	    이 임포트 구문으로 시그널 수신자(reassess_achievement)와
+	    발신자(Task 인스턴스의 save 메서드)를 연결한다.
+	    '''
+        from . import handlers
+
+```
+
+```python
+# crackers/models.py
+class Task(models.Model):
+	...
+
+	def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        achievement_reassessment_signal.send(sender=self.__class__, supertask=self.supertask)
+
+
+    def delete(self, *args, **kwargs):
+        supertask = self.supertask
+        result = super().delete(*args, **kwargs)
+        achievement_reassessment_signal.send(sender=self.__class__, supertask=supertask)
+        return result
+
+	...
+	
+```
 
 <br>
 
