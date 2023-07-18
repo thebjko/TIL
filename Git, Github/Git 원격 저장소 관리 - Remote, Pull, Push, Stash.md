@@ -118,6 +118,7 @@ related :
 
 ⭐️ Stash 저장 후 계속 작업하다가 다시 stash를 적용할 때 충돌이 날 수 있다. 하지만 `git stash branch <branch>` 를 사용해 stash 할 당시의 커밋 + stash했던 내용으로 브랜치를 만들 수 있다. 
 
+Stash에 이름을 붙이려면 [이 글](https://stackoverflow.com/questions/11269256/how-do-i-name-and-retrieve-a-git-stash-by-name)을 참고
 <br>
 
 ---
