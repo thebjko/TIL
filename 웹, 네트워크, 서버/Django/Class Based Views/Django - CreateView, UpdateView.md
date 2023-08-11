@@ -37,6 +37,8 @@ CreateView 클래스를 사용해 CBV로 리팩터해보자.
 
 	여기서 url을 제공하거나 `get_absolute_url` 메서드를 정의하라는 에러가 발생한다. 생성 후 생성된 detail 페이지로 이동할 것이므로 인스턴스의 정보가 필요해 `success_url` 속성을 정의하는 대신, **Todo 모델에** `get_absolute_url` 속성을 정의하자(2).
 	```python
+	
+	
 	class Todo(models.Model):
 	    title = models.CharField(max_length=80)
 	    content = models.TextField(null=True)

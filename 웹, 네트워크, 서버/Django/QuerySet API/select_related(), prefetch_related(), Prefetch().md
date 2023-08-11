@@ -9,6 +9,7 @@ related :
 # `select_related()`
 - 쿼리셋을 반환한다.
 - 쿼리가 실행될 때 외래키 관계를 "따라가서" 해당 정보 또한 가져와 캐시한다.
+- 1대 N일 때 N 쪽에서 실행한다.
 
 <br>
 
@@ -109,6 +110,10 @@ DB 쿼리를 줄인다는 점에서 비슷한 목적을 가지고 있지만, 전
 `select_related` 메서드는 `SQL JOIN`을 사용해 연관된 객체의 필드를 `SELECT` 문에 포함함으로 동작한다. 이러한 이유로 `select_related` 메서드는 한 쿼리에서 요청된 정보를 모두 가져온다. 너무 많은 정보를 가져오는걸 피하기 위해 `select_related` 메서드는 `ForeignKey`나 `OneToOneRelationship`과 같은 1대 N, 1대 1 관계에서만 사용할 수 있도록 제한되어있다.
 
 반면 `prefetch_related` 메서드는 각 관계당 따로 조회를 실시하고, 파이썬의 'joining'을 실시한다. 이러한 전략이 (1대 1, 1대 다 관계 +) 다대다, 다대 1 관계에서 데이터를 'prefetch' 할 수 있게 한다. (fetch는 가져오다는 뜻. 즉 미리 가져온다는 의미.)  `GenericRelation`과 `GenericForeignKey` 또한 prefetch 할 수 있게 한다는데, 지금은 넘어가기로 하자. 
+
+참고할 자료:
+- https://stackoverflow.com/questions/65278332/django-tutorial-reverse-for-results-with-arguments-1-not-found-error
+- https://stackoverflow.com/questions/31237042/whats-the-difference-between-select-related-and-prefetch-related-in-django-orm
 
 <br>
 
@@ -234,6 +239,7 @@ Restaurant → Pizza → Topping : 각 단계별 한개씩 총 3개의 쿼리로
 ...     Prefetch('toppings', queryset=Toppings.objects.filter(spicy=True))
 ... )
 >>> [list(pizza.toppings.filter(spicy=True)) for pizza in pizzas]   # 확인 필요!!!
+>>> [list(pizza.toppings.all()) for pizza in pizzas]
 ```
 이 경우 각 Pizza 인스턴스에 대해 `pizza.toppings.filter(spicy=True)`가 캐시되어 있어 활용할 수 있을 거라고 **추측**해본다.
 

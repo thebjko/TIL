@@ -98,6 +98,7 @@ cd /usr/lib/python3/dist-packages && ls -l | grep apt_pkg
 6. 확인한 버전으로 아래 명령 실행
 ```
 sudo ln -s apt_pkg.cpython-{확인한 apt_pkg 버전}-x86_64-linux-gnu.so apt_pkg.so
+sudo ln -s apt_pkg.cpython-310-x86_64-linux-gnu.so apt_pkg.so
 ```
 필자의 경우 310
 
@@ -117,6 +118,11 @@ Pip과 가상환경인 pipenv를 설치해야 한다. 파이썬 버전을 전면
 cd ~ && curl https://bootstrap.pypa.io/get-pip.py -O && python get-pip.py && . ~/.profile && pip install pipenv
 ```
 홈 디렉토리로 이동해 pip 파일을 받고 실행 한다. `~/.profile` 파일을 실행해 `~/.local/bin` 디렉토리를 PATH에 추가해야 그 안에 있는 pip 명령을 바로 실행할 수 있다. 이후 `pip install pipenv`를 실행해 설치한다.
+
+venv를 사용하려면 아래와 같이 입력. pipenv를 추천하지 않는다는 글을 봤다.
+```
+sudo apt-get install python3.11-dev python3.11-venv
+```
 
 **홈 디렉토리**에서 가상 환경을 실행한다. (좀 더 구체적인 디버깅이 필요하겠지만, 특정 디렉토리에서 실행했을 때 잘 안 되던 것 같다는 기억이 있다. 홈 디렉토리에서 생성한 가상환경은 잘 작동했기 때문에 이 글에서는 홈 디렉토리에서 실행한 가상 환경에서 진행한다.)
 
@@ -235,6 +241,10 @@ sudo service nginx restart
 4. `mysqlclient`가 설치되지 않으면
 	```
 	sudo apt install -y python3.11-dev libmysqlclient-dev libssl-dev
+	sudo apt-get install -y libffi-dev
+	```
+	```
+	sudo apt-get install python-dev-is-python3 default-libmysqlclient-dev
 	```
 
 <br>
@@ -267,4 +277,5 @@ sudo service nginx restart
 - [gunicorn systemd instead of supervisor](https://docs.gunicorn.org/en/stable/deploy.html#systemd)
 - [`ModuleNotFoundError: No module named 'apt_pkg'`](https://stackoverflow.com/questions/13708180/python-dev-installation-error-importerror-no-module-named-apt-pkg)
 	- [Why this happens](https://stackoverflow.com/questions/13708180/python-dev-installation-error-importerror-no-module-named-apt-pkg/64241654#64241654)
-- [`mysqlclient`가 설치되지 않을 때](https://stackoverflow.com/questions/56133947/install-mysqlclient-via-pipenv-throw-errors)a
+- [`mysqlclient`가 설치되지 않을 때](https://stackoverflow.com/questions/56133947/install-mysqlclient-via-pipenv-throw-errors)
+	- https://stackoverflow.com/questions/59388693/cannot-install-mysqlclient

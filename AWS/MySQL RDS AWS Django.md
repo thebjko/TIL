@@ -9,7 +9,7 @@ related :
 # Django - RDS MySQL 셋업
 0. mysqlclient 설치 - Python interface to MySQL
 ```
-pipenv install mysqlclient
+pip install mysqlclient
 ```
 1. 여러 데이터베이스를 사용하기 위해 다음과 같은 코드를 세팅 파일에 추가한다. dev.py와 prod.py를 구분해 사용하고 있으므로 일단 dev.py를 수정한다. 'users'라는 이름으로 MySQL DB를 사용할 것이다.
 ```python

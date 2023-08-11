@@ -85,7 +85,7 @@ related :
 
 ---
 # 참고자료
-- https://realpython.com/django-template-custom-tags-filters/#writing-django-template-custom-filters
+- https://realpython.com/django-template-custoom-tags-filters/#writing-django-template-custom-filters
 - https://docs.djangoproject.com/en/3.2/howto/custom-template-tags/
 
 [^1]:
